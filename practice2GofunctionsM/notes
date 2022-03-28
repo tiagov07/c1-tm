@@ -1,0 +1,19 @@
+Function :
+
+block of code with steps for achieve a task.
+
+
+Ellipsis:
+
+allow that our functions receive dynamic paramethers
+
+func myFunction( values ...float64) float64
+
+go only allow us one ellipsis per func in their paramethers
+
+Errors:
+
+go provide us an pagckage "errors" for handle it
+
+/t indentation
+
