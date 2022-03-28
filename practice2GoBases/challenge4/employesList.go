@@ -13,13 +13,13 @@ import "fmt"
 var employees = map[string]int{"Benjamin": 20, "Nahuel": 26, "Brenda": 19, "Dario": 44, "Pedro": 30}
 
 func main() {
-	employe := ""
+	name := ""
 	fmt.Println(" type the employe's name you want to work with please : ")
-	fmt.Scanf("%s", &employe)
+	fmt.Scanf("%s", &name)
 
-	employee := employees[employe]
+	employee := employees[name]
 	if employee != 0 {
-		fmt.Printf("the age of the employee is : %v years old \n", employee)
+		fmt.Printf("the %v age is : %v years old \n", name, employee)
 	} else {
 		fmt.Println(" be sure you type the name in the correct way")
 	}
@@ -30,5 +30,19 @@ func main() {
 		}
 	}
 	fmt.Println("employees with more than 21 years old are : ", m)
+	newE := ""
+	years := 0
+	fmt.Println(" If you want to add a new employee to our database type his name please : ")
+	fmt.Scanf("%s", &newE)
+	fmt.Println("Now type his age : ")
+	fmt.Scanf("%d", &years)
+
+	employees[newE] = years
+	deleteN := ""
+	fmt.Println(" If you want to delete some of the list type his name please : ")
+	fmt.Scanf("%s", &deleteN)
+	delete(employees, deleteN)
+
+	fmt.Printf(" %v \n ", employees)
 
 }
