@@ -15,6 +15,11 @@ type Matrix struct {
 	MaxValue   float32
 }
 
-func Set(Elements, Dimensión, Longitud, Cuadratica, MaxValue) float32 {
+func Set(m Matrix) float32 {
 	m := Matrix{Elements: }
+}
+
+func Print(m Matrix) string {
+	fmt.Printf("Elements:\t%d\nDimension:\t%d\nLongitud:\t%d\nCuadratica:\t%d\nMaxValue:\t%d\n\n", m.Elements, m.Dimensión, m.Longitud, m.Cuadratica, m.MaxValue)
+
 }
