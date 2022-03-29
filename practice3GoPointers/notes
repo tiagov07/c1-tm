@@ -1,0 +1,31 @@
+punteros:
+
+es un tipo de dato cuyo valor es una rieccion en memoria que se refiere a otro
+valor almacenado
+para crear un puntero usamos el \* antes del tipo de dato
+
+ej: var p \*int // de esta forma nos va a devolver al inicio de la memoria ram, no podemos
+acceder a el.
+o var p2 = new(int) // aqui nos devuelve una direccion valida
+
+desreferenciar : acceder al valor que esta guardado en cierta direccion de memoria.
+
+en backend se usara para funciones que esperan un parametro como referencia o valor
+
+Concurrencia y Paralelismo:
+
+concurrencia es ejecutar dos o mas tareas de manera intercalada. (se le da atencion a ambas
+tareas pero no se estan ejecutando en el mismo periodo de tiempo)
+
+Paralelismo:
+
+dos tareas o mas se ejecutan al mismo tiempo.
+
+Goroutines es el medio por el cual podemos realizar tareas de forma concurrente,
+su ejecucion no bloqueara la continuacion de aquella funcion que la invoco, porque
+correra de forma concurrente con esta.
+
+se usa con la palabra reservada go
+se usa poniendo la palabra reservada espacio nombre de la funcion
+
+ej: go function()

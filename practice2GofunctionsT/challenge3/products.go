@@ -24,32 +24,36 @@
 package main
 
 type Producto interface {
-	CalcularCosto()
+	CalcularCosto() float64
 }
 
 type Ecommerce interface {
-	Total()
-	Agregar()
+	Total() float64
+	Agregar(p Producto)
 }
 
 type tienda struct {
-	productsList []string
+	productsList []Producto
 }
 
 type producto struct {
 	Type  string
 	Name  string
-	Price int
+	Price float64
 }
 
-func newProduct(Type, Name string, Price int) Producto {
+func newProduct(Type string, Name string, Price float64) producto {
+	return producto{Type, Name, Price}
+}
+func (p producto) calcularCosto() float64 {
 	switch newProduct {
-	case Pequeño:
+	case p.Type == "Pequeño":
 		return 0
-	case Mediano:
-		return Price * 0.03
-	case Grande:
-		return Price*0.06 + 2500
+	case p.Type == "Mediano":
+		return p.Price * 0.03
+	case p.Type == "Grande":
+		return p.Price*0.06 + 2500
+	default:
+		return 0
 	}
-	return nil
 }
