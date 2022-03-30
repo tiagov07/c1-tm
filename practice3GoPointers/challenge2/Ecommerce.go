@@ -29,10 +29,8 @@ type product struct {
 }
 
 func (p product) newProduct(name string, price uint32) product {
-	p.ProductName = name
-	p.price = price
-	p.quantity = 1
-	return p
+	newProduct := product{p.ProductName: name, p.price: price, p.quantity: 1}
+	return newProduct
 }
 
 func (u *User) addProduct(Name string, product product, quantity uint16) {

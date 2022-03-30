@@ -1,0 +1,19 @@
+error manage allow us to save time and find easily the parts we must work.
+in Go error in a interface type. 
+
+type error interface {
+    Error() string
+}
+
+the error message don't have UpperCase ( the proper names could be an exeption)
+
+errors.As() error package to know de type of error
+
+*para definir que la variable va a ser un puntero
+&para referenciar la direccion en memoria
+
+errors.Is() verify if is literal the error
+
+errors.Unwrap()  %w(para empaquetarlo) => errors.Unwrap(err) para mostrarlo
+
+error in a functions allows return like the last value
