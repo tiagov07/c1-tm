@@ -29,3 +29,16 @@ se usa con la palabra reservada go
 se usa poniendo la palabra reservada espacio nombre de la funcion
 
 ej: go function()
+
+Canal:
+
+nos va a permitir enviar valores a las Go routines y esperar hasta recibir dicho valor.
+
+para definir un canal debo acompanarlo con el tipo ya que por canal solo puedo enviar un tipo
+de dato
+
+ej : c := make(chan int)
+
+c <- i //escribiriamos hacia al canal
+
+c -> i// escribiriamos desde el canal

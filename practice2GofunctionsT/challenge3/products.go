@@ -23,37 +23,69 @@
 
 package main
 
-type Producto interface {
-	CalcularCosto() float64
+import "fmt"
+
+func main() {
+	product1 := newProduct("little", "pizza", 1000)
+	product2 := newProduct("medium", "burguer", 4000)
+	product3 := newProduct("big", "barril", 15000)
+
+	store1 := newStore()
+	store1.Add(product1)
+	store1.Add(product2)
+	store1.Add(product3)
+
+	fmt.Println(store1.Total())
+}
+
+type Product interface {
+	getCost() float64
 }
 
 type Ecommerce interface {
 	Total() float64
-	Agregar(p Producto)
+	Add(p product)
 }
 
-type tienda struct {
-	productsList []Producto
+type store struct {
+	products []product
 }
 
-type producto struct {
+func (s *store) Add(p product) {
+	s.products = append(s.products, p)
+}
+
+func (s store) Total() float64 {
+	var total float64
+	for _, p := range s.products {
+		total += p.Price + p.getCost()
+	}
+	return total
+}
+
+type product struct {
 	Type  string
 	Name  string
 	Price float64
 }
 
-func newProduct(Type string, Name string, Price float64) producto {
-	return producto{Type, Name, Price}
+func newProduct(Type string, Name string, Price float64) product {
+	return product{Type, Name, Price}
 }
-func (p producto) calcularCosto() float64 {
-	switch newProduct {
-	case p.Type == "Pequeño":
+
+func newStore() Ecommerce {
+	return &store{[]product{}}
+}
+
+func (p product) getCost() float64 {
+	if p.Type == "little" {
 		return 0
-	case p.Type == "Mediano":
+	} else if p.Type == "medium" {
 		return p.Price * 0.03
-	case p.Type == "Grande":
+	} else if p.Type == "big" {
 		return p.Price*0.06 + 2500
-	default:
+	} else {
 		return 0
 	}
+
 }
