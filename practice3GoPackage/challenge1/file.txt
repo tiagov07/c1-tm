@@ -1,1 +1,1 @@
-[{"id":1,"precio":5000,"cantidad":2,"nombre":"galleta"},{"id":1,"precio":5000,"cantidad":2,"nombre":"galleta"},{"id":1,"precio":8000,"cantidad":2,"nombre":"gaseosa"}]
+[{"id":1,"precio":5000,"cantidad":2,"nombre":"galleta"},{"id":1,"precio":200,"cantidad":2,"nombre":"bombom"},{"id":1,"precio":8000,"cantidad":2,"nombre":"gaseosa"}]

@@ -12,4 +12,22 @@
 //                           4030062.50
 package main
 
-import ""
+import (
+	"fmt"
+	"log"
+	"os"
+	"strings"
+)
+
+func main() {
+	data, error := os.ReadFile("../challenge1/file.txt")
+	if error != nil {
+		log.Fatal(error)
+	}
+	tableData(data)
+}
+
+func tableData(data []byte) {
+	products := strings.Split(string(data), ",")
+	fmt.Println(products[3])
+}

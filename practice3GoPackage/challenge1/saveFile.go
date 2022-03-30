@@ -27,7 +27,7 @@ type producto struct {
 func main() {
 	// newSliceProducts := &sliceProductos{}
 	// newSliceProducts.Productos = []producto{}
-	newProduct := []producto{{1, 5000, 2, "galleta"}, {1, 5000, 2, "galleta"}, {1, 8000, 2, "gaseosa"}}
+	newProduct := []producto{{1, 5000, 2, "galleta"}, {2, 200, 2, "bombom"}, {3, 8000, 2, "gaseosa"}}
 	newProductJson, err1 := json.Marshal(newProduct)
 	if err1 != nil {
 		log.Fatal(err1)
