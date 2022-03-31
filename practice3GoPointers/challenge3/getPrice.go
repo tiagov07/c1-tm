@@ -30,11 +30,14 @@ func main() {
 	product1 := Product{"auto", 30000000, 2}
 	Product2 := Product{"lampara", 15000, 1}
 	Product3 := Product{"Ambientador", 300, 4}
-	service1 := Service{"lavado", 3000, 2}
-	service2 := Service{"polichado", 5000, 1}
-	maintenance1 := Product{"cambio Aceite", 50000, 40}
+	// service1 := Service{"lavado", 3000, 2}
+	// service2 := Service{"polichado", 5000, 1}
+	// maintenance1 := Product{"cambio Aceite", 50000, 40}
 
 	fmt.Println("here we go")
+	products := []Product{product1, Product2, Product3}
+	fmt.Println(product1.productCost(products))
+
 }
 
 type Product struct {

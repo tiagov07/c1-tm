@@ -1,0 +1,89 @@
+repaso estructuras y punteros:
+
+el puntero se pone en los metodos de las estructuras que realicen algun
+cambio en los atributos de la estructura
+
+type persona struct {
+	nombre string
+	edad int
+}
+//aqui no necesito el puntero porque no estoy modificando ningun atributo
+// solo lo voy a usar
+func (p persona) saludar(){
+	fmt.Println(" hola !!", p.nombre)
+}
+//aqui si necesito el puntero porque voy a modificar el atributo edad
+func (p *persona) cambiarEdad(nuevaEdad int) {
+	p.edad = nuevaEdad
+}
+
+// ahora se podria cambiar sin necesidad de ser un metodo usando referencias
+// y punteros
+
+func setEdad(p *persona, edad) {
+	p.edad = edad
+}
+
+func main() {
+	p1: persona{nombre : " emilio", edad : 23}
+
+	setEdad(&p1, 34)
+}
+
+// en cuanto al slice y el map cuando se pasa por parametro asi la funcion
+// que lo reciba como atributo no lo tengo * como puntero, esta la tratara
+// como tal, se usara la referencia del slice, la funcion no creara un
+// nuevo slice 
+
+// en caso de querer crear un nuevo slice para trabajar en base al que tenemos
+// debemos usar la funcion copy y esa copia la mandamos a la funcion
+
+nuevoSlice := make([]int,3)
+
+copy(nuevoSlice)
+
+// para eliminar un elemento de un slice
+
+slice := []int
+slice[:5]// aqui me estoy quedando con los valores desde el cero hasta el 5
+// sin incluir el 5
+
+slice = append(slice[:5]],slice[5+1:]) // verificar bien este metodo
+
+//Herencia
+
+package main 
+
+type SerVivo struct {
+	nombre string
+	edad int
+}
+
+type Humano struct {
+	nacionalidad string
+	s SerVivo // si yo lo dejara como anonimo poner serVivo sin la s
+	// podria acceder a los atributos de SerVivo directamente
+}
+
+type Gato struct {
+
+	raza string
+	s SerVivo
+}
+
+func main() {
+	g := Gato{ raza: "siames", s: SerVivo{nombre:"bigotes", edad: 5}}
+	p := Humano{ nacional: "Colombiano", s: SerVivo{nombre: "facundo", edad:26}}
+	fmt.Printf("%+v", p.nombre)
+}
+
+// los atributos se ponen en mayuscula cuando queremos que los atributos
+// sean accededidos desde afuera
+
+//Interfaces
+
+// para que sea considerado como interface la estructura debe tener todos
+// los metodos declarados en la interface
+
+// polimorfismo significa que objeto un puede ser tratada de una forma u otra
+// dependiendo de su interfaz
