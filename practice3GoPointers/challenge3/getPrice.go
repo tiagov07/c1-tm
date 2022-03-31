@@ -28,16 +28,23 @@ import "fmt"
 
 func main() {
 	product1 := Product{"auto", 30000000, 2}
-	Product2 := Product{"lampara", 15000, 1}
-	Product3 := Product{"Ambientador", 300, 4}
-	// service1 := Service{"lavado", 3000, 2}
+	// Product2 := Product{"lampara", 15000, 1}
+	// Product3 := Product{"Ambientador", 300, 4}
+	service1 := Service{"lavado", 3000, 2}
 	// service2 := Service{"polichado", 5000, 1}
-	// maintenance1 := Product{"cambio Aceite", 50000, 40}
+	maintenance1 := Maintenance{"cambio Aceite", 50000}
 
 	fmt.Println("here we go")
-	products := []Product{product1, Product2, Product3}
-	fmt.Println(product1.productCost(products))
-
+	chanel := make(chan int) // in order to call the main function after
+	// the go routine functions
+	products := []Product{product1}
+	go product1.productCost(products, chanel)
+	services := []Service{service1}
+	go service1.servicesCost(services, chanel)
+	maintenances := []Maintenance{maintenance1}
+	go maintenance1.maintenanceCost(maintenances, chanel)
+	totalCost := <-chanel + <-chanel + <-chanel
+	fmt.Println(totalCost)
 }
 
 type Product struct {
@@ -57,26 +64,30 @@ type Maintenance struct {
 	Price int
 }
 
-func (p *Product) productCost(pts []Product) int {
+func (p *Product) productCost(pts []Product, chanel chan int) {
 	totalCost := 0
 	for i := 0; i < len(pts); i++ {
 		totalCost += pts[i].Price * pts[i].Quantity
 	}
-	return totalCost
+	fmt.Printf(" products cost  ")
+	chanel <- totalCost
+
 }
 
-func (s *Service) servicesCost(srs []Service) int {
+func (s *Service) servicesCost(srs []Service, chanel chan int) {
 	totalCost := 0
 	for i := 0; i < len(srs); i++ {
 		totalCost += srs[i].Price * srs[i].MinutesOfWork
 	}
-	return totalCost
+	fmt.Printf(" service cost ")
+	chanel <- totalCost
 }
 
-func (m *Maintenance) maintenanceCost(srs []Maintenance) int {
+func (m *Maintenance) maintenanceCost(srs []Maintenance, chanel chan int) {
 	totalCost := 0
 	for i := 0; i < len(srs); i++ {
 		totalCost += srs[i].Price
 	}
-	return totalCost
+	fmt.Printf(" maintenances cost ")
+	chanel <- totalCost
 }

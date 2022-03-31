@@ -1,0 +1,21 @@
+para iniciar un modulo en go : - go mod init github.com/tiagov07/nombre-modulo //para un modulo
+
+- go mod init github.com/tiagov07/carpeta/nombre-modulos
+
+nota: no se puede instanciar una interface, se puede instanciar una
+estructura.
+
+Se debe exportar una interfaz y no una estructura, para en caso de ralizar cambios en la estructura la persona que este usando el paquete
+no lo note.
+
+type assertion trata de devolvernos el contenido de un dato de una interfaz si coincide (asi podemos verificar el tipo de dato)
+
+type interfacePrueba interface{
+
+}
+a := interfacePrueba //validar sintaxis
+a := 34
+
+a.(type)
+
+a.(int) estamos preguntandole si a variable contiene un entero
