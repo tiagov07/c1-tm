@@ -10,12 +10,39 @@ no lo note.
 
 type assertion trata de devolvernos el contenido de un dato de una interfaz si coincide (asi podemos verificar el tipo de dato)
 
+a.(type)
+
+a.(int) estamos preguntandole si a variable contiene un entero
+
 type interfacePrueba interface{
 
 }
 a := interfacePrueba //validar sintaxis
 a := 34
 
-a.(type)
+para crear numeros aleatorios:
 
-a.(int) estamos preguntandole si a variable contiene un entero
+rand.Seed(time.Now().UnixNano())
+
+para representar una fecha en go:
+
+package main
+
+import "time"
+
+time.Now()// fecha actual
+time.Now().UTC// para dar a conocer la hora segun el meridiano
+
+type empleado struct {
+fecha-ingreso time.Time
+}
+
+e := empleado{}
+e.fecha-ingreso = time.Date(2021, 3, 23, 8, 0, 0, 0, time.UTC)
+
+para cambiar el formato
+
+fmt.Println(now.Format(""))
+
+Para que el codigo sea generado dentro del debugger debe estar en un
+modulo de go
