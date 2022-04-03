@@ -1,0 +1,40 @@
+API rest:
+
+protocols and definitios (application programming interface)
+work as connection between another applications
+
+JSON easier way to serialize an object
+
+protocol some rules that must be followed for have an access
+
+HTTP protocol navigator use in order to communicate.
+
+server-client allow to integrate integrate
+
+uniform interfaz url: resource address type HTTP unique identificator
+
+layers system proxies, gateways. (security)
+
+cache : data precalculate direct access
+
+stateless : interactions between client and server are handle them like news
+
+REST: representational state transfer
+
+JSON: light exachange format of data (JavasScript Object Notation) between different language or technologies.
+
+package json library that allow us transform structures and data types in Go to JSON and JSON to Go.
+
+.Marshal()
+
+func Marshal(v interface{} ) ([]byte,error)
+get as a parameter a value of any type and return a slice of bytes with
+his representation in JSON and error if find it
+
+func Unmarshal(data []byte, vinterface{}) error
+
+go mod tidy verify all importation and update go.sum
+
+Gin abstrac of net.http that allow us to create a server
+
+request -> router -> middleware -> router handler -> middleware ->response

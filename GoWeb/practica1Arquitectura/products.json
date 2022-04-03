@@ -1,0 +1,28 @@
+[{
+    "id": 1,
+    "nombre": "algo",
+    "color": "rojo",
+    "precio": 900.50,
+    "stock": 12,
+    "codigo": "11aa",
+    "publicado": true,
+    "fecha_creacion": "1/04/2022"
+},{
+    "id": 2,
+    "nombre": "algo2",
+    "color": "azul",
+    "precio": 90.50,
+    "stock": 1,
+    "codigo": "22aa",
+    "publicado": false,
+    "fecha_creacion": "2/04/2022"
+},{
+    "id": 3,
+    "nombre": "algo3",
+    "color": "rojo",
+    "precio": 9000,
+    "stock": 52,
+    "codigo": "33aa",
+    "publicado": true,
+    "fecha_creacion": "1/04/2022"
+}]
