@@ -1,0 +1,19 @@
+HTTP request
+Method GET/POST/PUT/PATCH/DELETE
+URL path
+Version version of http
+Header metadata, additional request information
+
+we can send a receive files and photos through post request
+
+difference between Bind and ShouldBind :
+
+- Bind : if there is an error gin abort the request by setting 400 status
+
+- ShouldBind : If thereis an error, gin allow the developer to handle it
+
+groups : we can generate more than one element by request
+
+Headers :
+
+here we can send additional information about the request

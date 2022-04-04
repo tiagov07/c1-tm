@@ -1,0 +1,14 @@
+HTTP request
+
+Response 
+Version HTTP
+Status (200 ok, 201, 404 not found, 401 unauthorized, 500 internal error,
+502 bad gateway)
+
+Headers 
+Body
+
+gin.context: gin core, allow to pass variables between middleware like
+headers, parameters among others.
+
+
