@@ -1,0 +1,18 @@
+Architecture
+
+Layers :
+
+- controller : receive client request, validate values, run services and
+  return an answer.
+
+- service : core application functions and administrate external resources like and external api or data base(data persistence)
+
+- repository : data access.
+
+Project structure
+
+we can do it in two different ways :
+
+- layers ( controller, repository, service )
+
+- domain by actor : who take part of my system ( employee ( controller, repository, service) products ( controller, repository, service))
