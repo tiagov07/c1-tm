@@ -17,11 +17,11 @@ type request struct {
 	PostedDate string  `json:"postedDate"`
 }
 
-type Product struct {
+type ProductHandler struct {
 	service products.Service
 }
 
-func (p *Product) GetAll() gin.HandlerFunc {
+func (p *ProductHandler) GetAll() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		token := ctx.Request.Header.Get("token")
 		if token != "123456" {
@@ -39,7 +39,7 @@ func (p *Product) GetAll() gin.HandlerFunc {
 	}
 }
 
-func (p *Product) Store() gin.HandlerFunc {
+func (p *ProductHandler) Store() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		token := ctx.Request.Header.Get("token")
 		if token != "123456" {
@@ -63,6 +63,6 @@ func (p *Product) Store() gin.HandlerFunc {
 	}
 }
 
-func NewProduct(s products.Service) *Product {
-	return &Product{service: s}
+func NewProduct(s products.Service) *ProductHandler {
+	return &ProductHandler{service: s}
 }
