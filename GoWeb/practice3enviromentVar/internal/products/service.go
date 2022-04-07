@@ -2,8 +2,8 @@ package products
 
 type Service interface {
 	GetAll() ([]Product, error)
-	Store(name, kind string, quantity int, price float64) (Product, error)
-	Update(id int, name, kind string, quantity int, price float64) (Product, error)
+	Store(name, productType string, count int, price float64) (Product, error)
+	Update(id int, name, productType string, count int, price float64) (Product, error)
 	UpdateName(id int, name string) (Product, error)
 	Delete(id int) error
 }
@@ -20,13 +20,13 @@ func (s *service) GetAll() ([]Product, error) {
 	return ps, nil
 }
 
-func (s *service) Store(name, kind string, quantity int, price float64) (Product, error) {
+func (s *service) Store(name, productType string, count int, price float64) (Product, error) {
 	lastID, err := s.repository.LastID()
 	if err != nil {
 		return Product{}, err
 	}
 	lastID++
-	product, err := s.repository.Store(lastID, name, kind, quantity, price)
+	product, err := s.repository.Store(lastID, name, productType, count, price)
 	if err != nil {
 		return Product{}, err
 	}

@@ -2,11 +2,15 @@ package main
 
 import (
 	"github/tiagov07/c1-tm/GoWeb/practice3enviromentVar/cmd/server/handler"
+	"github/tiagov07/c1-tm/GoWeb/practice3enviromentVar/docs"
 	"github/tiagov07/c1-tm/GoWeb/practice3enviromentVar/internal/products"
 	"github/tiagov07/c1-tm/GoWeb/practice3enviromentVar/pkg/store"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	ginSwagger "github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
 func main() {
@@ -17,12 +21,14 @@ func main() {
 	product := handler.NewProduct(serviceProducts)
 	route := gin.Default()
 
+	docs.SwaggerInfo.Host = os.Getenv("HOST")
+	route.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	productGroup := route.Group("/products")
 	productGroup.POST("/", product.Store())
 	productGroup.GET("/", product.GetAll())
 	productGroup.PUT("/:id", product.Update())
 	productGroup.PATCH("/:id", product.UpdateName())
 	productGroup.DELETE("/:id", product.Delete())
-	route.Run(":3000")
+	route.Run(":8080")
 
 }

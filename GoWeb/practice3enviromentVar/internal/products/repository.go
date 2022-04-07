@@ -18,9 +18,9 @@ var lastID int
 
 type Repository interface {
 	GetAll() ([]Product, error)
-	Store(id int, name, kind string, quantity int, price float64) (Product, error)
+	Store(id int, name, productType string, count int, price float64) (Product, error)
 	LastID() (int, error)
-	Update(id int, name, kind string, quantity int, price float64) (Product, error)
+	Update(id int, name, productType string, count int, price float64) (Product, error)
 	UpdateName(id int, name string) (Product, error)
 	Delete(id int) error
 }
@@ -39,11 +39,11 @@ func (r *repository) LastID() (int, error) {
 	return lastID, nil
 }
 
-func (r *repository) Store(id int, name, kind string, quantity int, price float64) (Product, error) {
+func (r *repository) Store(id int, name, productType string, count int, price float64) (Product, error) {
 	var products []Product
 	r.db.Read(&products)
 
-	newProduct := Product{id, name, kind, quantity, price}
+	newProduct := Product{id, name, productType, count, price}
 	products = append(products, newProduct)
 
 	if err := r.db.Write(products); err != nil {

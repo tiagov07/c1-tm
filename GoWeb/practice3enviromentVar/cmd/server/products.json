@@ -12,5 +12,19 @@
   "type": "hidratacion",
   "count": 2,
   "price": 5000
+ },
+ {
+  "id": 3,
+  "name": "carro",
+  "type": "juguete",
+  "count": 22,
+  "price": 13000
+ },
+ {
+  "id": 4,
+  "name": "carro",
+  "type": "transporte",
+  "count": 2,
+  "price": 3000000
  }
 ]
