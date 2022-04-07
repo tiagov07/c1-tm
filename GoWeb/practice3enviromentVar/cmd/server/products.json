@@ -1,0 +1,16 @@
+[
+ {
+  "id": 1,
+  "name": "jugo",
+  "type": "",
+  "count": 0,
+  "price": 5000
+ },
+ {
+  "id": 2,
+  "name": "jugo",
+  "type": "hidratacion",
+  "count": 2,
+  "price": 5000
+ }
+]
