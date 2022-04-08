@@ -1,24 +1,17 @@
 [
  {
   "id": 1,
-  "name": "jugo",
-  "type": "",
-  "count": 0,
-  "price": 5000
+  "name": "loratadina",
+  "type": "medicamento",
+  "count": 2,
+  "price": 8000
  },
  {
   "id": 2,
-  "name": "jugo",
-  "type": "hidratacion",
-  "count": 2,
-  "price": 5000
- },
- {
-  "id": 3,
-  "name": "carro",
-  "type": "juguete",
-  "count": 22,
-  "price": 13000
+  "name": "aspirina",
+  "type": "medicamento",
+  "count": 3,
+  "price": 4000
  },
  {
   "id": 4,
@@ -26,5 +19,19 @@
   "type": "transporte",
   "count": 2,
   "price": 3000000
+ },
+ {
+  "id": 5,
+  "name": "loratadina",
+  "type": "medicamento",
+  "count": 2,
+  "price": 8000
+ },
+ {
+  "id": 6,
+  "name": "chocoramo",
+  "type": "dulce",
+  "count": 2,
+  "price": 200
  }
 ]

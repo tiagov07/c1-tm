@@ -86,11 +86,10 @@ paths:
       - description: Product to delete
         in: body
         name: product
-        required: true
         schema:
           $ref: '#/definitions/handler.request'
       - description: id
-        in: query
+        in: path
         name: id
         required: true
         type: integer
@@ -121,7 +120,7 @@ paths:
         schema:
           $ref: '#/definitions/handler.request'
       - description: id
-        in: query
+        in: path
         name: id
         required: true
         type: integer

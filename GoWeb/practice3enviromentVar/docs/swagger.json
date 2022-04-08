@@ -146,7 +146,6 @@
                         "description": "Product to delete",
                         "name": "product",
                         "in": "body",
-                        "required": true,
                         "schema": {
                             "$ref": "#/definitions/handler.request"
                         }
@@ -155,7 +154,7 @@
                         "type": "integer",
                         "description": "id",
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     }
                 ],
@@ -201,7 +200,7 @@
                         "type": "integer",
                         "description": "id",
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     }
                 ],

@@ -148,7 +148,7 @@ func (c *ProductHandler) Update() gin.HandlerFunc {
 // @Produce  json
 // @Param token header string true "token"
 // @Param product body request true "name to update"
-// @Param id query int true "id"
+// @Param id path int true "id"
 // @Success 200 {object} web.Response
 // @Router /products/{id} [patch]
 func (c *ProductHandler) UpdateName() gin.HandlerFunc {
@@ -192,8 +192,8 @@ func (c *ProductHandler) UpdateName() gin.HandlerFunc {
 // @Accept  json
 // @Produce  json
 // @Param token header string true "token"
-// @Param product body request true "Product to delete"
-// @Param id query int true "id"
+// @Param product body request false "Product to delete"
+// @Param id path int true "id"
 // @Success 200 {object} web.Response
 // @Router /products/{id} [delete]
 func (c *ProductHandler) Delete() gin.HandlerFunc {

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github/tiagov07/c1-tm/GoWeb/practice2layersArquitecture/cmd/server/handler"
-	"github/tiagov07/c1-tm/GoWeb/practice2layersArquitecture/internal/products"
+	"github/tiagov07/c1-tm/GoWeb/practice2layersArchitecture/cmd/server/handler"
+	"github/tiagov07/c1-tm/GoWeb/practice2layersArchitecture/internal/products"
 
 	"github.com/gin-gonic/gin"
 )
