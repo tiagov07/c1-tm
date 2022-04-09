@@ -23,7 +23,7 @@ func main() {
 
 	docs.SwaggerInfo.Host = os.Getenv("HOST")
 	route.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	productGroup := route.Group("/products")
+	productGroup := route.Group("/products", handler.TokenAuthMiddleware())
 	productGroup.POST("/", product.Store())
 	productGroup.GET("/", product.GetAll())
 	productGroup.PUT("/:id", product.Update())

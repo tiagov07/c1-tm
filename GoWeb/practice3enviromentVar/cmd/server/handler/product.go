@@ -31,11 +31,6 @@ type ProductHandler struct {
 // @Router /products [get]
 func (c *ProductHandler) GetAll() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		token := ctx.Request.Header.Get("token")
-		if token != os.Getenv("TOKEN") {
-			ctx.JSON(401, web.NewResponse(401, nil, "not authorized", "invalid credentials"))
-			return
-		}
 		product, error := c.service.GetAll()
 		if error != nil {
 			ctx.JSON(404, web.NewResponse(404, nil, "elements not found", error.Error()))

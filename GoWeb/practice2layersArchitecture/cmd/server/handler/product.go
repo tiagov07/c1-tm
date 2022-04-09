@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github/tiagov07/c1-tm/GoWeb/practice2layersArquitecture/internal/products"
+	"github/tiagov07/c1-tm/GoWeb/practice2layersArchitecture/internal/products"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
