@@ -33,5 +33,96 @@
   "type": "dulce",
   "count": 2,
   "price": 200
+ },
+ {
+  "id": 0,
+  "name": "morfina",
+  "type": "medicamento",
+  "count": 2,
+  "price": 10000
+ },
+ {
+  "id": 0,
+  "name": "morfina",
+  "type": "medicamento",
+  "count": 2,
+  "price": 10000
+ },
+ {
+  "id": 1,
+  "name": "morfina",
+  "type": "medicamento",
+  "count": 2,
+  "price": 10000
+ },
+ {
+  "id": 1,
+  "name": "morfina",
+  "type": "medicamento",
+  "count": 2,
+  "price": 10000
+ },
+ {
+  "id": 1,
+  "name": "morfina",
+  "type": "medicamento",
+  "count": 2,
+  "price": 10000
+ },
+ {
+  "id": 1,
+  "name": "morfina",
+  "type": "medicamento",
+  "count": 2,
+  "price": 10000
+ },
+ {
+  "id": 1,
+  "name": "morfina",
+  "type": "medicamento",
+  "count": 2,
+  "price": 10000
+ },
+ {
+  "id": 2,
+  "name": "morfina",
+  "type": "medicamento",
+  "count": 2,
+  "price": 10000
+ },
+ {
+  "id": 3,
+  "name": "morfina",
+  "type": "medicamento",
+  "count": 2,
+  "price": 10000
+ },
+ {
+  "id": 4,
+  "name": "morfina",
+  "type": "medicamento",
+  "count": 2,
+  "price": 10000
+ },
+ {
+  "id": 5,
+  "name": "morfina",
+  "type": "medicamento",
+  "count": 2,
+  "price": 10000
+ },
+ {
+  "id": 6,
+  "name": "morfina",
+  "type": "medicamento",
+  "count": 2,
+  "price": 10000
+ },
+ {
+  "id": 7,
+  "name": "morfina",
+  "type": "medicamento",
+  "count": 2,
+  "price": 10000
  }
 ]

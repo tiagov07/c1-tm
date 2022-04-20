@@ -16,6 +16,7 @@ import (
 func main() {
 	_ = godotenv.Load()
 	db := store.New(store.FileType, "./products.json")
+	// dbT := store.New(store.FileType, "./transactions.json")
 	repoProducts := products.NewRepository(db)
 	serviceProducts := products.NewService(repoProducts)
 	product := handler.NewProduct(serviceProducts)

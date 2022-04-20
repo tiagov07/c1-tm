@@ -36,14 +36,20 @@ func (r *repository) GetAll() ([]Product, error) {
 }
 
 func (r *repository) LastID() (int, error) {
-	return lastID, nil
+	var ps []Product
+	if err := r.db.Read(&ps); err != nil {
+		return 0, err
+	}
+	if len(ps) == 0 {
+		return 0, nil
+	}
+	return ps[len(ps)-1].Id, nil
 }
 
 func (r *repository) Store(id int, name, productType string, count int, price float64) (Product, error) {
 	var products []Product
 	r.db.Read(&products)
-	lastID = len(products)
-	newProduct := Product{lastID, name, productType, count, price}
+	newProduct := Product{id, name, productType, count, price}
 	products = append(products, newProduct)
 
 	if err := r.db.Write(products); err != nil {
