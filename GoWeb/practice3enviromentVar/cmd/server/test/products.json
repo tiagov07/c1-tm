@@ -1,0 +1,30 @@
+[
+ {
+  "id": 1,
+  "name": "",
+  "type": "",
+  "count": 0,
+  "price": 0
+ },
+ {
+  "id": 2,
+  "name": "",
+  "type": "",
+  "count": 0,
+  "price": 0
+ },
+ {
+  "id": 3,
+  "name": "",
+  "type": "",
+  "count": 0,
+  "price": 0
+ },
+ {
+  "id": 5,
+  "name": "conejillo de indias",
+  "type": "test funcional",
+  "count": 3,
+  "price": 0
+ }
+]
