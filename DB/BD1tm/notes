@@ -1,0 +1,43 @@
+Que es redundancia de datos?
+- datos duplicados dentro de el motor de base de datos.
+
+Que es inconsistencia de datos?
+- Datos no actualizados en toda la base de datos. (cuando dos referencias a un mismo dato
+son diferentes)
+
+Nombre al menos 2 bases de datos entre Consistencia y Tolerancia al particionamiento
+- (BYMA y bolsa de valores de Colombia)
+
+¿Qué significa SQL?
+- Structured Query Language
+
+En una tabla de datos que es la Primary Key o Llave primaria
+- es una clave que identifica de forma unica una fila de la tabla.
+
+En una tabla de datos que es la Foreign Key o Llave foránea
+- columna o conjunto de columnas que van a referenciar la clave primaria de otro tipo de
+entidades.
+
+¿Qué significa que una relación entre dos entidades es UNO a UNO?
+- una instancia de una entidad solo se relaciona con una de otra entidad
+
+¿Qué significa que una relación entre dos entidades es UNO a MUCHOS?
+- cada instancia de una entidad se relaciona con varias de otra entidad
+
+¿Qué significa que una relación entre dos entidades es MUCHOS a MUCHOS?
+- muchas las instancias de una entidad se relacionan con muchas de otra entidad
+
+Defina que es una base de datos
+- Las bases de datos son un conjunto de datos que se encuentran almacenados en un
+determinado lugar y de forma organizada para ser consultada y utilizada de manera eficiente.
+
+Defina el concepto atributo
+- Son las propiedades que describen a cada entidad en un conjunto de entidades
+
+Realizar un diagrama de entidad de relaciones para un sistema de alquiler de libros en una
+biblioteca en donde una persona puede reservar más de un libro. Implementarlo en una base
+de datos.
+
+Mejorar el diagrama entidad-relación realizado anteriormente incorporando una tabla
+intermedia “alquiler” para administrar la fecha de alquiler y devolución de los libros a
+ser prestados.
