@@ -1,0 +1,33 @@
+¿A qué se denomina JOIN en una base de datos?
+
+- consiste en combinar datos de una tabla con datos de la otra tabla a partir de una o varias condiciones en común.
+
+Nombre y explique 2 tipos de JOIN.
+
+- INNER JOIN retorna solo los datos que tienen en comun las dos tablas.
+- RIGTH JOIN retorna los datos que tienen en comun la dos tablas sumado como los datos de la tabla ubicada al costado derecho.
+
+¿Para qué se utiliza el GROUP BY?
+
+- para obtener datos resumidos y agrupados por las columnas que se necesiten.
+
+¿Para qué se utiliza el HAVING?
+
+- para modificar los grupos obtenido por el GROUP BY
+
+dado los siguientes conjuntos indicar el tipo de JOIN
+
+- INNER JOIN
+- LEFT JOIN
+
+hacer una consulta generica por cada uno de los diagramas
+
+- SELECT m.name, m.age
+  FROM movie m
+  RIGHT JOIN actor a
+  WHERE A.place = m.place
+
+- SELECT m.name, m.age
+  FROM movie m
+  FULL JOIN actor a
+  WHERE A.place = m.place
