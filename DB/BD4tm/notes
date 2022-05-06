@@ -1,0 +1,50 @@
+SQL
+- basadas en tablas y relaciones
+- estructura definida previamente en el diseno
+- escasa redundancia de datos
+- alta consistencia de los datos
+- escalabilidad vertical (un solo servidor pero con mas recursos)
+- son mas robustos y menos vulnerables a fallos = ACID
+
+NOSQL
+
+- basada en documentos
+- estructura dinamica y flexible
+- permite tener redundancia de datos
+- soportan grandes cantidades de datos a consultar
+- escalabilidad horizontal ( cuantos servidores se requieran )
+
+
+En el caso de las bases de datos no relacionales es importante saber como vamos a acceder a la informacion
+
+debemos generar una lista de todos los accesos que vamos a tener a la informacion
+si necesitamos performance y persistencias las llamadas tendran que valerce de key value
+en caso de no ser asi se puede valer del tanto del key value como del document search
+
+KVS : key value store
+DS : document search
+
+
+
+metricas del core : nos dan a conocer que tanto estamos afectando al usuario, miden la salud del negocio
+
+Tengo una base de datos relacional que utilizo para guardar información sobre el carrito de compras. 
+• Cuando alguien abandona el carrito, se inserta un registro en una tabla. 
+• Quiero que cuando eso pase, la API de Growth pueda enviar una notificación al usuario para que retome
+el carrito. 
+¿Cómo resuelvo el Caso de Uso? ¿Por qué?
+- Change  Data Capture (CDC): mecanismo para notificar cambios producidos en registros o tablas
+- ASYNC communication
+
+Tengo un KVS que utilizo para guardar mis items, a los cuales se accede habitualmente por clave,
+no obstante, ahora me surgió una necesidad de que en ciertos casos quiero poder buscar y agrupar
+por categoría.
+¿Qué solución proponen? ¿Por qué?
+- Document Search (DS) con todos los datos que se deseen agrupar 
+
+Tengo un KVS y quiero poder obtener todos los datos almacenados para poder hacer operaciones en bulk 
+sobre ellos. Cómo lo puedo resolver?
+- Object Storage (OS) extrae toda la informacion y la pone en un archivo
+
+
+

@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"github/tiagov07/c1-tm/GoWeb/practice3enviromentVar/internal/products"
 	"github/tiagov07/c1-tm/GoWeb/practice3enviromentVar/pkg/web"
 	"os"
@@ -68,6 +69,31 @@ func (c *ProductHandler) Store() gin.HandlerFunc {
 			return
 		}
 		ctx.JSON(200, product)
+	}
+}
+
+func (c *ProductHandler) GetByName() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+
+		token := ctx.Request.Header.Get("token")
+		tokenFromEnv := os.Getenv("TOKEN")
+
+		if token != tokenFromEnv {
+			ctx.JSON(401, gin.H{
+				"error": "token inválido",
+			})
+			return
+		}
+		name := ctx.Param("name")
+		fmt.Println(name)
+		p, err := c.service.GetByName(name)
+		if err != nil {
+			ctx.JSON(404, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+		ctx.JSON(200, p)
 	}
 }
 

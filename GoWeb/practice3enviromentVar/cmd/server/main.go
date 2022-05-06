@@ -4,7 +4,7 @@ import (
 	"github/tiagov07/c1-tm/GoWeb/practice3enviromentVar/cmd/server/handler"
 	"github/tiagov07/c1-tm/GoWeb/practice3enviromentVar/docs"
 	"github/tiagov07/c1-tm/GoWeb/practice3enviromentVar/internal/products"
-	"github/tiagov07/c1-tm/GoWeb/practice3enviromentVar/pkg/store"
+	"github/tiagov07/c1-tm/GoWeb/practice3enviromentVar/pkg/db"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -15,7 +15,7 @@ import (
 
 func main() {
 	_ = godotenv.Load()
-	db := store.New(store.FileType, "./products.json")
+	db := db.StorageDB
 	// dbT := store.New(store.FileType, "./transactions.json")
 	repoProducts := products.NewRepository(db)
 	serviceProducts := products.NewService(repoProducts)
@@ -27,6 +27,7 @@ func main() {
 	productGroup := route.Group("/products", handler.TokenAuthMiddleware())
 	productGroup.POST("/", product.Store())
 	productGroup.GET("/", product.GetAll())
+	productGroup.GET("/:name", product.GetByName())
 	productGroup.PUT("/:id", product.Update())
 	productGroup.PATCH("/:id", product.UpdateName())
 	productGroup.DELETE("/:id", product.Delete())
