@@ -32,26 +32,40 @@ type repository struct {
 }
 
 func (r *repository) GetByName(name string) (Product, error) {
-	var product []Product
-	var p Product
+	var products []Product
 	db := db.StorageDB
-	rows, err := db.Query("select name, type, count, price from products where name LIKE '%?%'", name)
+	rows, err := db.Query("SELECT * FROM products WHERE name = ?", name)
 	if err != nil {
 		log.Println(err)
 		return Product{}, nil
 	}
 	for rows.Next() {
+		var p Product
 		if err := rows.Scan(&p.Id, &p.Name, &p.Type, &p.Count, &p.Price); err != nil {
 			log.Println(err.Error())
 			return Product{}, nil
 		}
-		product = append(product, p)
+		products = append(products, p)
 	}
-	return p, nil
+	return products[0], nil
 }
 
 func (r *repository) GetAll() ([]Product, error) {
 	var products []Product
+	db := db.StorageDB
+	rows, err := db.Query("SELECT * FROM products")
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+	for rows.Next() {
+		var product Product
+		if err := rows.Scan(&product.Id, &product.Name, &product.Type, &product.Count, &product.Price); err != nil {
+			log.Fatal(err)
+			return nil, err
+		}
+		products = append(products, product)
+	}
 	return products, nil
 }
 
