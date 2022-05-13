@@ -1,0 +1,58 @@
+Monolito : todo esta concentrado en un servidor, solo se puede escalar en forma vertical
+
+MicroServicio : un conjunto de componentes independientes con una tarea unica, escalado horizontal
+
+Ingenieria de software : se toma decisiones con criterio, aprovechando las herramientas para optimizar
+recursos y generar el mayor valor posible.
+
+- para estimar la cantidad de reintentos debo basarme en las necesidades, como se comporta la api,
+si tengo historico puedo graficarlos y analizar tendencias.
+
+
+- trafico organico: para consultarlo.
+
+respuesta grupo 4
+
+- se contempla que se solicitaria mayor informacion como los peores casos 0.9% 
+
+- revisar historico y armar graficar para analizar datos como cantidad de request que puede llegar
+a tener en promedio.
+
+
+- se plantea el uso de go routines 
+
+- tener un escalado horizontal de discounts-api segun la demanda
+
+- tener un time - sleep en la go routine para garantizar el tiempo de respuesta
+
+- si falla la primera vez cortar la ejecucion para que no siga consumiendo recursos (cantidad de intentos)
+
+preguntar si todas las request son iguales o no
+
+tomar el caso mas pesimista
+
+error rate = 0.9 % de 100 veces que llamo a la api 9 veces contesta mal
+
+respuesta = 150 timeout 3 reintentos
+
+1000 arrancan 941 llegan 9 se lastiman 50 no llegan
+se reintenta para los que faltan por llegar
+
+59 de estos el 94.1% son exitosos
+
+La carrera de las 1000 personas, si tomamos el P95, entonces, después de 150ms llegaron 950 pesonas
+menos el error rate 0.9% de 1000 personas que es 9, entonces 941 personas finalmente llegaron. De
+las 59 restantes, lo reintentaron, tomando otra vez el P95, después de 350ms (150 + 150 ms) 
+llegaron 56 personas menos el error rate 0.9% de 1000 personas que es 0.53 personas entonces
+redondeando son 0, entonces 3 personas no llegaron.
+Así 3 personas de de las 1000 representa 0.3% lo que es menor al
+0.5% requerido.
+300ms
+
+black out : reiniciar la instancias
+
+que status code no son reintentables?? el circuit bracker: cortar la conexion para que los no reintentables
+no hagan que el problema crezca y me doy un espacio para recuperarme y al recuperarme vuelvo a conectar
+gradualmente el bracker
+
+configuracion RestClient de MELI
