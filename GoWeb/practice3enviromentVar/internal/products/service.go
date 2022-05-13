@@ -2,11 +2,15 @@ package products
 
 type Service interface {
 	GetAll() ([]Product, error)
+	GetFullData(id int) (Product, error)
 	Store(name, productType string, count int, price float64) (Product, error)
 	Update(id int, name, productType string, count int, price float64) (Product, error)
 	UpdateName(id int, name string) (Product, error)
 	Delete(id int) error
 	GetByName(name string) (Product, error)
+	GetOne(id int) (Product, error)
+	GetOneWithContext(ctx context.Context, id int) (Product, error)
+
 }
 
 type service struct {
@@ -21,6 +25,14 @@ func (s *service) GetAll() ([]Product, error) {
 	return ps, nil
 }
 
+func (s *service) GetFullData(id int) (Product, error) {
+	ps, err := s.repository.GetFullData(id)
+	if err != nil {
+		return Product{}, err
+	}
+	return ps, nil
+}
+
 func (s *service) GetByName(name string) (Product, error) {
 	product, err := s.repository.GetByName(name)
 	if err != nil {
@@ -29,17 +41,20 @@ func (s *service) GetByName(name string) (Product, error) {
 	return product, nil
 }
 
+func (s *service) GetOne(id int) (Product, error) {
+	product, err := s.repository.GetOne(id)
+	if err != nil {
+		return Product{}, err
+	}
+	return product, nil
+}
+
 func (s *service) Store(name, productType string, count int, price float64) (Product, error) {
-	lastID, err := s.repository.LastID()
+	product, err := s.repository.Store(name, productType, count, price)
 	if err != nil {
 		return Product{}, err
 	}
-	lastID++
-	p := Product{0, name, productType, count, price}
-	product, err := s.repository.Store(p)
-	if err != nil {
-		return Product{}, err
-	}
+
 	return product, nil
 }
 
@@ -60,3 +75,5 @@ func NewService(r Repository) Service {
 		repository: r,
 	}
 }
+
+

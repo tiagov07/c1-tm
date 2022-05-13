@@ -1,31 +1,45 @@
 package products
 
 import (
+	"context"
 	"database/sql"
 	"github/tiagov07/c1-tm/GoWeb/practice3enviromentVar/pkg/db"
 	"log"
 )
 
 type Product struct {
-	Id    int     `json:"id"`
-	Name  string  `json:"name"`
-	Type  string  `json:"type"`
-	Count int     `json:"count"`
-	Price float64 `json:"price"`
+	Id              int     `json:"id"`
+	Name            string  `json:"name"`
+	Type            string  `json:"type"`
+	Count           int     `json:"count"`
+	Price           float64 `json:"price"`
+	Id_warehouse    string  `json:"id_warehouse,omitempty"`
+	WarehouseAdress string  `json:"warehouse_address,omitempty"`
 }
 
 var products []Product
 var lastID int
 
 type Repository interface {
-	Store(product Product) (Product, error)
+	GetOne(id int) (Product, error)
+	GetOneWithContext(ctx context.Context, id int) (Product, error)
+	Store(name, productType string, count int, price float64) (Product, error)
 	GetAll() ([]Product, error)
+	GetFullData(id int) (Product, error)
 	GetByName(name string) (Product, error)
 	LastID() (int, error)
 	Update(id int, name, productType string, count int, price float64) (Product, error)
 	UpdateName(id int, name string) (Product, error)
 	Delete(id int) error
 }
+
+const (
+	GetAllProducts   = "SELECT Id, Name, Type, Count, Price FROM products"
+	CreateNewProduct = "INSERT INTO products(name, type, count, price) VALUES( ?, ?, ?, ?)"
+	UpdateProduct    = "UPDATE products SET name = ?, type = ?, count = ?, price = ? WHERE id = ?"
+	DeleteProduct    = "DELETE FROM products WHERE id = ?"
+	GetOneProduct    = "SELECT Id, Name, Type, Count, Price FROM products WHERE id = ?"
+)
 
 type repository struct {
 	db *sql.DB
@@ -50,10 +64,72 @@ func (r *repository) GetByName(name string) (Product, error) {
 	return products[0], nil
 }
 
+func (r *repository) GetOne(id int) (Product, error) {
+	var products []Product
+	db := db.StorageDB
+	rows, err := db.Query(GetOneProduct, id)
+	if err != nil {
+		log.Println(err)
+		return Product{}, err
+	}
+
+	for rows.Next() {
+		var p Product
+		if err := rows.Scan(&p.Id, &p.Name, &p.Type, &p.Count, &p.Price); err != nil {
+			log.Println(err.Error())
+			return Product{}, nil
+		}
+		products = append(products, p)
+	}
+	return products[0], nil
+
+}
+
+func (r *repository) GetOneWithContext(ctx context.Context, id int) (Product, error) {
+	var product Product
+	db := db.StorageDB
+	getQuery := GetOneProduct
+
+	rows, err := db.QueryContext(ctx, getQuery, id)
+	if err != nil {
+		log.Println(err)
+		return Product{}, err
+	}
+
+	for rows.Next() {
+		if err := rows.Scan(&product.Id, &product.Name, &product.Type, &product.Count, &product.Price); err != nil {
+			log.Fatal(err)
+			return Product{}, err
+		}
+	}
+	return product, nil
+}
+
+func (r *repository) GetFullData(id int) (Product, error) {
+	var product Product
+	db := db.StorageDB
+	innerJoin := "SELECT products.id, products.name, products.type, products.count, products.price, warehouses.name, warehouses.adress " +
+		"FROM products INNER JOIN warehouses ON products.id_warehouse = warehouses.id " +
+		"WHERE products.id = ?"
+	rows, err := db.Query(innerJoin, id)
+	if err != nil {
+		log.Println(err)
+		return product, err
+	}
+	for rows.Next() {
+		if err := rows.Scan(&product.Id, &product.Name, &product.Type, &product.Count, &product.Price, &product.Id_warehouse,
+			&product.WarehouseAdress); err != nil {
+			log.Fatal(err)
+			return product, err
+		}
+	}
+	return product, nil
+}
+
 func (r *repository) GetAll() ([]Product, error) {
 	var products []Product
 	db := db.StorageDB
-	rows, err := db.Query("SELECT * FROM products")
+	rows, err := db.Query(GetAllProducts)
 	if err != nil {
 		log.Println(err)
 		return nil, err
@@ -77,37 +153,38 @@ func (r *repository) LastID() (int, error) {
 	return ps[len(ps)-1].Id, nil
 }
 
-func (r *repository) Store(product Product) (Product, error) {
+func (r *repository) Store(name, productType string, count int, price float64) (Product, error) {
 	db := db.StorageDB
-	stmt, err := db.Prepare("INSERT INTO products(name, type, count, price) VALUES( ?, ?, ?, ?)")
+	stmt, err := db.Prepare(CreateNewProduct)
 
 	if err != nil {
 		return Product{}, err
 	}
 	defer stmt.Close()
-	var result sql.Result
-	result, err = stmt.Exec(product.Name, product.Type, product.Count, product.Price)
+	p := Product{Name: name, Type: productType, Count: count, Price: price}
+
+	result, err := stmt.Exec(name, productType, count, price)
 
 	if err != nil {
 		return Product{}, err
 	}
 	insertedId, _ := result.LastInsertId()
-	product.Id = int(insertedId)
+	p.Id = int(insertedId)
 
-	return product, nil
+	return p, nil
 }
 
 func (r *repository) Update(id int, name, productType string, count int, price float64) (Product, error) {
-	stmt, err := r.db.Prepare("UPDATE products SET name = ?, productType = ?, count = ?, price = ? WHERE id = ?")
+	stmt, err := r.db.Prepare(UpdateProduct)
 	if err != nil {
-		return Product{}, err
+		log.Fatal(err)
 	}
 	defer stmt.Close()
-	_, err = stmt.Exec(name, productType, count, price)
+	product := Product{Id: id, Name: name, Type: productType, Count: count, Price: price}
+	_, err = stmt.Exec(name, productType, count, price, id)
 	if err != nil {
 		return Product{}, err
 	}
-	product := Product{Id: id, Name: name, Type: productType, Count: count, Price: price}
 	return product, nil
 }
 
@@ -117,6 +194,18 @@ func (r *repository) UpdateName(id int, name string) (Product, error) {
 }
 
 func (r *repository) Delete(id int) error {
+	db := db.StorageDB
+	stmt, err := db.Prepare(DeleteProduct)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(id)
+
+	if err != nil {
+		return err
+	}
 	return nil
 }
 

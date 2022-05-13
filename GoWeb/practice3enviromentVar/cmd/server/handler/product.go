@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"github/tiagov07/c1-tm/GoWeb/practice3enviromentVar/internal/products"
 	"github/tiagov07/c1-tm/GoWeb/practice3enviromentVar/pkg/web"
 	"os"
@@ -11,10 +10,11 @@ import (
 )
 
 type request struct {
-	Name  string  `json:"name" binding:"required"`
-	Type  string  `json:"type" `
-	Count int     `json:"count" `
-	Price float64 `json:"price"`
+	Name         string  `json:"name" binding:"required"`
+	Type         string  `json:"type" `
+	Count        int     `json:"count" `
+	Price        float64 `json:"price"`
+	Id_warehouse int     `json:"id_warehouse"`
 }
 
 type ProductHandler struct {
@@ -84,11 +84,73 @@ func (c *ProductHandler) GetByName() gin.HandlerFunc {
 			})
 			return
 		}
-		name := ctx.Param("name")
-		fmt.Println(name)
+		name := ctx.Query("name")
 		p, err := c.service.GetByName(name)
 		if err != nil {
 			ctx.JSON(404, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+		ctx.JSON(200, p)
+	}
+}
+
+func (c *ProductHandler) GetOne() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+
+		token := ctx.Request.Header.Get("token")
+		tokenFromEnv := os.Getenv("TOKEN")
+
+		if token != tokenFromEnv {
+			ctx.JSON(401, gin.H{
+				"error": "token inválido",
+			})
+			return
+		}
+		id, err := strconv.ParseInt(ctx.Param("id"), 10, 64)
+		if err != nil {
+			ctx.JSON(404, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		p, err := c.service.GetOne(int(id))
+		if err != nil {
+			ctx.JSON(404, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+		ctx.JSON(200, p)
+	}
+}
+
+func (c *ProductHandler) GetFullData() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		token := ctx.Request.Header.Get("token")
+		tokenFromEnv := os.Getenv("TOKEN")
+
+		if token != tokenFromEnv {
+			ctx.JSON(401, gin.H{
+				"error": "token inválido",
+			})
+			return
+		}
+		var (
+			id  int
+			err error
+		)
+		if id, err = strconv.Atoi(ctx.Param("id")); err != nil {
+			ctx.JSON(400, gin.H{
+				"error": "invalid id",
+			})
+			return
+		}
+		p, err := c.service.GetFullData(id)
+		if err != nil {
+			ctx.JSON(500, gin.H{
 				"error": err.Error(),
 			})
 			return
