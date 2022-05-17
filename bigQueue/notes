@@ -1,0 +1,41 @@
+Big queue 
+topicos:
+- rate limit = sirve como una especie de amortiguador para alto trafico
+- Source = de donde vienen las consultas podemos permitir o no consultas dependiendo
+de las fuentes.
+- Tags = referencias
+- los topicos pueden ser publicos o privados
+mensajes:
+promedio de mensajes 250 kb
+- para mover eventos
+- se tienen Dead letter Queues para manejar mensajes fallidos
+
+consumers:
+- rate limit = que tantas request quiero que el consumidor pueda consumir.
+- Peek = para referenciar un mensaje que quiza esta presentando fallas y estudiarlo
+
+garantias:
+
+- No garantiza orden
+- No garantiza unicidad ( podrian haber mensajes duplicados)
+- at least one delivery
+- retry until delivery
+
+recomendaciones:
+
+- un topico por proposito
+- mensajes no muy grandes
+- no responder mucho con errores
+- buen monitoreo
+- es preferible retornar error a poner a dormir algo por mucho tiempo
+- tener cuidado con los rate limits
+- taggear
+- no agendar por calendar reintentos
+- no acoplar a la metadata del pusher
+- bibliotecas actualizadas
+- artefactos de test marcados como test
+- no publicar mensaje por mensaje tratar de hacerlo por arrayas de mensajes
+- comunicar, reportar issues, preguntar
+- utiliza los canales correctos de soporte
+
+
