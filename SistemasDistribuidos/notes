@@ -56,3 +56,41 @@ no hagan que el problema crezca y me doy un espacio para recuperarme y al recupe
 gradualmente el bracker
 
 configuracion RestClient de MELI
+
+
+KVS 
+
+servicio para almacenar recuperar y gestionar estructuras de datos comunmente
+conocidas como diccionarios y hash.
+
+garantias:
+
+- consistencia es adaptable
+
+- latencia de menos de 10ms
+
+- escalable horizontalmente
+
+limitaciones:
+
+- cuando se quiere una query mas compleja kvs empieza a presentar problemas
+
+Document search:
+
+- esta disenado para leer puede presentar problemas al momento de escribir
+
+
+- se puede generar una capa de cache bajo demanda
+- basada en eventos.
+- programada.
+- se puede dividir por zonas y redireccionar con nginx
+
+echo $'# Added by furycli:\nexport PATH="$/Users/savalencia/Library/Python/3.9.12/bin:$/Users/savalencia/"' >> ~/.bash_profile
+source ~/.bash_profile
+
+echo $'# Added by furycli:\nexport PATH="$/Users/savalencia/Library/Python/3.9.12/bin:$/Users/savalencia"' >> ~/.zshrc
+source ~/.zshrc
+
+set -U fish_user_paths /Users/$USER/Library/Python/3.9.12/bin $fish_user_paths
+
+
