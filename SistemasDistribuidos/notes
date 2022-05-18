@@ -85,12 +85,3 @@ Document search:
 - programada.
 - se puede dividir por zonas y redireccionar con nginx
 
-echo $'# Added by furycli:\nexport PATH="$/Users/savalencia/Library/Python/3.9.12/bin:$/Users/savalencia/"' >> ~/.bash_profile
-source ~/.bash_profile
-
-echo $'# Added by furycli:\nexport PATH="$/Users/savalencia/Library/Python/3.9.12/bin:$/Users/savalencia"' >> ~/.zshrc
-source ~/.zshrc
-
-set -U fish_user_paths /Users/$USER/Library/Python/3.9.12/bin $fish_user_paths
-
-

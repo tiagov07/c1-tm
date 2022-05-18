@@ -1,18 +1,51 @@
-Big queue 
+servicio Big queue (BigQ)
+
+Es un lugar donde se pueden publicar mensajes (productor) y n personas pueden
+suscribirse para recibir mensajes (consumidores).
+
+Puede controlar picos de trafico (buffer de olas de mensajes)
+
+se tiene un cluster(productores) y dentro n consumers
+
+Responsabilidad:
+Interconectar a diferentes aplicaciones en forma asincronica, implementando el
+patron publish-subscribe.
+Se le envia un mensaje a las aplicaciones conectadas dando informacion de un
+evento en particular a traves de http.
+
 topicos:
-- rate limit = sirve como una especie de amortiguador para alto trafico
+
+- rate limit = sirve como una especie de amortiguador para alto trafico, controlar
+  que cantidad de mensajes permito transitar (para que esto no se vea detectado
+  por los consumidores), este debe ser espeficiado por el
+  desarrollador.
 - Source = de donde vienen las consultas podemos permitir o no consultas dependiendo
-de las fuentes.
-- Tags = referencias
-- los topicos pueden ser publicos o privados
+  de las fuentes.
+- Tags = referencias de los recursos para tener presente la criticidad
+- TTL = los mensajes pueden ser configurados para que duren determinado tiempo
+- filters = para que vayan cierta cantidad de mensajes a un determinado sitio
+- un topico privado se puede poner publico pero uno publico no se puede poner
+  privado.
+- los consumidores pueden consumir de cualquier topico publico pero no producir.
+- se puede enlazar con bases de datos para recibir notificaciones de cambio de sus
+  tablas.
+
 mensajes:
-promedio de mensajes 250 kb
+
+- mensajes small, promedio de mensajes 1.5 kb
 - para mover eventos
 - se tienen Dead letter Queues para manejar mensajes fallidos
 
 consumers:
+
 - rate limit = que tantas request quiero que el consumidor pueda consumir.
-- Peek = para referenciar un mensaje que quiza esta presentando fallas y estudiarlo
+  configurar para que los mensajes lleguen de manera gradual
+- Reset / Rewind = reprocesar datos de un tiempo determinado para atras.
+- Lag = metricas que contienen cuantos mensajes estoy atrasado (me faltan por
+  consumir).
+- Tags = en base a la prioridad, debe ser menor que la de su topico o igual
+- Peek = para referenciar un mensaje que quiza esta presentando fallas y
+  estudiarlo
 
 garantias:
 
@@ -24,7 +57,7 @@ garantias:
 recomendaciones:
 
 - un topico por proposito
-- mensajes no muy grandes
+- mensajes no muy grandes (bulk delivery 47kb. cuanto seria el maximo aceptable?)
 - no responder mucho con errores
 - buen monitoreo
 - es preferible retornar error a poner a dormir algo por mucho tiempo
@@ -38,4 +71,11 @@ recomendaciones:
 - comunicar, reportar issues, preguntar
 - utiliza los canales correctos de soporte
 
+troubleShooting:
 
+- tiempos altos y errores pueden afectar la cantidad de mensajes que recibo
+- los reintentos no son exactos
+
+nota : enviar los mensajes en mls(milisegundos)
+
+pushError: bigQ te envia un mensaje de error sobre algun problema en particular
