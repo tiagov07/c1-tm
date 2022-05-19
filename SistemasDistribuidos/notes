@@ -160,7 +160,7 @@ diferencia entre batch y bulk: con batch es todo o nada con bulk pueden fallar
 algunas keys y llegan el resto, yo tengo forma de saber cuales fallaron y rein-
 tentar.
 
-regExp : no se recomienda usarse
+regExp : no recomienda usarse
 
 la clave de ruteo debe tener las siguientes caracteristicas :
 
@@ -168,7 +168,31 @@ la clave de ruteo debe tener las siguientes caracteristicas :
 - que sea amplia la gama de valores que se tienen
 - que te permita partir de forma balanceada los documentos que se tengan
 
-campo cantidad de documentos :
+no se debe:
 
-- se usa para saber desde el punto de creacion hasta determinado tiempo cuantas
-particiones se van a tener
+- hacer busquedas en un DS por keys
+- guardar logs
+- guardar datos historicos
+- un DS con pocos documentos
+- busquedas sin rutear
+- las nested query
+
+se debe:
+
+- actualizar datos pero no todo el tiempo
+- utilizar un cluster segundarios para las querys mas costosas
+
+
+cuando se va a crear un DS:
+
+campo cantidad de documentos = se usa para saber desde el punto de creacion
+hasta determinado tiempo cuantas particiones se van a tener.
+
+la integracion entre un KVS y un DS lo uno que conoce es del valor de los
+documentos por lo cual en general la key esta en el value.
+
+- el DS no esta pensado para hacer una busqueda de clave valor, se acopla mas
+a busqedas por fracciones de texto
+
+
+- Qkvs se guarda con referencia a claves segundarias
