@@ -58,24 +58,79 @@ gradualmente el bracker
 configuracion RestClient de MELI
 
 
-KVS 
+KVS: 
 
 servicio para almacenar recuperar y gestionar estructuras de datos comunmente
 conocidas como diccionarios y hash.
 
+- es buena idea usarlas para Api gracias a su escalado horizontal y su alta
+disponibilidad.
+
+se busca:
+- simplicidad
+- alta disponibilidad
+- seguridad e integridad.
+
+- se sacrifica la consistencia
+
+teorema cap : 
+- consistencia
+- disponibilidad
+- performance
+
 garantias:
 
-- consistencia es adaptable
+- consistencia es adaptable (dependiendo del grado de consistencia que se necesita se elije un flavor)
 
 - latencia de menos de 10ms
 
 - escalable horizontalmente
 
+- nos da una garantia de orden y unicidad
+
 limitaciones:
 
 - cuando se quiere una query mas compleja kvs empieza a presentar problemas
 
-Document search:
+a tener en cuenta:
+
+- write and read throughput = cuantas request voy a recibir y cuantas voy a
+escribir (validar mediante monitoreo son editables)
+
+- metricas relevantes = throughput en vivo en un KVS, metricas de tiempo de respuesta
+cuantos errores tengo.
+cuanto es el lag respecto a la sincronicacion entren el KVS y el DS
+
+- configuar en los KVS un TTL (time to live) = tiempo en que un paquete es llevado
+a la salida antes de que el servicio responda
+
+- los KVS deben estar bien distribuidos y balanceados, cuando se divide por
+zonas hay unas llaves que van a estar mucho mas calientes que otras estas se
+pueden respaldar con cache.
+
+
+Document Search:
+
+- simplicidad
+- alta disponibilidad
+- seguridad e integridad.
+- es eventualmente consistente(no se tiene ningun tipo de garantia del tiempo en
+que la informacion va a tardar en actualizarse).
+
+cuenta con:
+- un scope de escritura
+- un scope de lectura
+- un scope de BigQ(me garantiza que no pierda lo que escribo apesar de caerse el
+cluster en el que vivo)
+- tengo un backup en S3
+
+Un cluster tiene dos tipos de nodos:
+- nodos route = yo le doy un hint de donde va a ir la info para que solo vaya a esa
+particion de datos.(usar siempre que sea posible) es importante resaltar que esa referencia
+que le doy debe estar presente en todos los datos.
+- nodos unroute = se parte la query en la cantidad de nodos no ruteados, se recupera
+la info y se une para devolver el resultado ( la uso cuando no tengo un criterio
+especifico para ir a buscar)
 
 - esta disenado para leer puede presentar problemas al momento de escribir
 
@@ -84,4 +139,36 @@ Document search:
 - basada en eventos.
 - programada.
 - se puede dividir por zonas y redireccionar con nginx
+- se recomienda poner de que tipo son los campos que se van a guardar
 
+tipos de busquedas:
+
+- Query and fetch = traeme elementos con ciertas caracteristicas.
+
+- count = cantidad de elementos con ciertas caracteristicas
+
+- scroll = un puntero con el que se puede ir y escanear todos los datos.
+
+- after_search = no indagar todos los datos
+
+Analizadores de texto:
+- buscar por pedazos de palabras con elastic Search
+
+nota :
+
+diferencia entre batch y bulk: con batch es todo o nada con bulk pueden fallar
+algunas keys y llegan el resto, yo tengo forma de saber cuales fallaron y rein-
+tentar.
+
+regExp : no se recomienda usarse
+
+la clave de ruteo debe tener las siguientes caracteristicas :
+
+- el atributo este siempre en las consultas que se hagan
+- que sea amplia la gama de valores que se tienen
+- que te permita partir de forma balanceada los documentos que se tengan
+
+campo cantidad de documentos :
+
+- se usa para saber desde el punto de creacion hasta determinado tiempo cuantas
+particiones se van a tener
