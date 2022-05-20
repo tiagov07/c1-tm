@@ -1,0 +1,64 @@
+Swap:
+  - asignar trafico
+
+deployment strategy:
+  - All in = actualizacion de todas las instancias a la vez.
+  (no hay forma de volver a la version anterior(rollback), se tiene downtime, rapido
+  economico)
+  - Rolling Update = actualizar las instancias progresivamente
+  (no tiene rollback, no genera downtime, rapido)
+  - Blue green = comprar 5 instancias nuevas e ir cambiando por las viejas una
+  a una.
+  (se puede hacer rollback, se mueve el trafico progresivamente, no tiene down time)
+  - Canary = es un blue green pero de forma provicional compras la instancia nueva
+  redireccionas un porcentaje de trafico mientras arreglas las instancias antiguas y
+  al terminar pierdes esa instancia nueva y quedan las antiguas. (es para probar)
+  (bueno para testear nuevas caracteristicas, tiene rollback y tiene recomendaciones de
+  de rollback, se pueden correr test por horas)
+  - Safe = el safe es un Blue green pero con un sistema de swapeo que te va permitir
+  conocer el estado del deploy con analisis de las partes mas criticas de la app.
+  (rollback de presentarse algun problema, mismas caracteristicas del Blue green,
+  debe tener trafico constante por lo menos 50 req/min, te permite testear cambios
+  por un periodo de tiempo, sigue analizando metricas unos minutos mas de terminar el deploy)
+
+StickySessions = que cuando el usuario llegue a una version se quede ahi para
+no producir confusiones
+
+se recomienda:
+- para test All in y Rolling Update
+- si la criticidad es muy baja Rolling Update
+- si la criticidad es mediana Blue Green
+- si la criticidad es muy alta Safe
+
+
+Sandbox :
+Es un ambiente de prueba para testear servicios de fury como puede ser KVS o DS
+
+Object Storage:
+Es como un S3, es un servicio para guardar archivos (bytes)
+(si quiero guardar un archivo con mucha informacion que no va a ser consultada
+constantemente)
+
+Audits:
+esta mas orientado a procesos criticos de mi aplicacion
+kibana 
+ej: procesos de pago(rastrear un fallo)
+
+logs:
+Para entender que es lo que esta pasando en el desarrollo de la app a nivel de
+codigo.
+
+a tener en cuenta:
+
+- si voy a enviar a muchos subscriptores la opcion es bigQ
+- si preciso orden la opcion seria Stream tiene max 20 subscriptores
+- si son tareas de larga duracion es workqueues
+
+otros servicios:
+
+- Cache = cache estandarizada.
+- Bazooka = para testear cargas sin autorizacion hasta un millon de req/min.
+- configs = podemos tener para una app una feature prendida en un scope
+y otra apagada.
+- locks = bloquear recursos.
+- sequence = para manejar determinada secuencia que necesite en un recurso

@@ -79,3 +79,11 @@ troubleShooting:
 nota : enviar los mensajes en mls(milisegundos)
 
 pushError: bigQ te envia un mensaje de error sobre algun problema en particular
+
+caso de uso :
+
+- tenemos una aplicacion la cual me devuelve el precio de un articulo en la moneda que yo elija.
+
+puede tener un cache en local
+uno distribuido
+uno distribuido con un respaldo local
