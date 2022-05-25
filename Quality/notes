@@ -1,0 +1,95 @@
+Release Process:
+Es un framwork construido integramente sobre fury que nos permite integrar codigo en las aplicaciones de MELI
+de manera facil, rapida y sobre todo segura.
+
+Persigue un alto estandar de calidad sobre el proceso y el codigo que esta en juego.
+
+se apalanca en los conceptos de integracion continua y delivery continuo.
+
+Se ejecuta principalmente en los Pull Request de nuestras aplicaciones.
+
+el pull request busca llevar de forma ordenada todos los cambios que yo estuve realizando en mi computador.
+
+entre las responsabilidades del release process estan:
+
+- crear un proceso unificado, auditable y trazable para cada cambio que se realiza en las aplicaciones.
+- garantizar un alto nivel de calidad en cada porcion de codigo introducido.
+- agilizar el proceso de empaquetado y despliegue de las aplicaciones.
+
+GitFlow
+
+release (creacion de una version) para hacer el pull request a master release/1.0.0 (numero de la version)
+
+a partir de master puedo crear un branch (hotfix) para hacer un cambio rapido hotfix/cambio-a-efectuar
+
+LibFlow
+
+para crear una version se utiliza el comando fury create-version
+
+CI continuos Integration:
+
+se efectuan una serie de validaciones que se deben respetar para integrar el codigo desarrollado a una aplicacion
+
+- se establecen y validan las condiciones para que el codigo pueda ser integrado
+- deteccion de error de forma temprana y rapida
+- mayor eficiencia y trabajo en equipo
+- asegura la integridad del codigo
+
+para su uso:
+
+- el desarrollo se hace localmente
+- se suben los cambios realizados a traves de git
+- ejecucion del integrador continuo a traves del pull request
+- se obtendra un resultado positivo o negativo dependiendo si las validaciones fueron cumplidas satisfactoriamente.
+  el resultado sera visible en el pull request.
+
+CI en fury:
+
+- no requiere ninguna configuracion manual por parte de los desarrolladores.
+- se abre un pull request
+- al realizar un commit sobre un branch con Pull request abierto
+
+proveedores para CI en fury
+
+- Jenkins para aplicaciones Web (Apis) y librerias para definir estandares que debe cumplir el codigo dependiendo
+  del lenguaje y tipo de aplicacion.
+- Circleci se usa para aplicaciones y librerias Mobile(android y iOS). Es un servicio que nos provee varias ventajas en el mundo mobile, como la actualizacion constante de las herramientas mobile(SDKs) necesarias para compilar y testear
+  las aplicaciones, asi como tambien provee entornos de MacOS para poder hacer builds de aplicaciones iOS.
+
+Pull request coverage:
+
+- evalua el porcentaje de codigo testeado que se envia al pull request (minimo un 80% de cobertura)
+
+Minimum coverage :
+
+- valida que el porcentaje de cobertura no se merme cuando se haga el merge a master o main
+
+
+al hacer los pull request aparece con verde las lineas testeadas, en amarillo los condicionales que
+solo tengan testeados alguno de los casos y en rojo las lineas que no lo esten.
+
+Release process:
+
+solo se encarga de generar el paquete del versionado
+y luego desde fury podemos gestionar el deployment
+
+hotfix :
+
+es una urgencia, algo que se debe solucionar lo mas pronto posible porque
+puede generar una experiencia negativa en los usuarios.
+
+Aqui la version se va a generar sin pasar los filtros de calidad (porque es una
+urgencia).
+
+Si no se especifica la version, por defecto se aumenta el minor (1.1.0) el numero
+de la mitad.
+ major = primer dijito, se usa para dar a conocer cambios grandes (2.0.0) primer digito
+ minor = para cambios menores (1.1.0) segundo digito
+ patch = para cambios rapidos(hot fix 1.0.1) tercer digito
+
+Code review:
+
+Es el examen sistematico del codigo fuente por parte de los miembros de un equipo
+Se realiza con el objetivo de mejorar la calidad del codigo mediante la deteccion
+temprana de errores o alternativas mas eficientes a la implementacion inicial.
+
